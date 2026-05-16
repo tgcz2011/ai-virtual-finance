@@ -1,10 +1,14 @@
 """Entry point for AI Virtual Finance."""
 
+from __future__ import annotations
+
+from src.tui.app import AVFApp
+
 
 def main() -> None:
-    """Print startup information."""
-    print("AI Virtual Finance v0.1.0")
-    print("Starting up...")
+    """Run the TUI application."""
+    app = AVFApp()
+    app.run()
 
 
 if __name__ == "__main__":
