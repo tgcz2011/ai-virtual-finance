@@ -1,0 +1,48 @@
+# Persistence Configuration
+# Copy this file to persistence.yaml and adjust for your durability/performance needs.
+
+# ── Database ──────────────────────────────────────────────────────────────────
+# Primary SQLite settings for local state, cache and time-series storage.
+database:
+  # Path to the SQLite database file (relative paths are resolved against cwd)
+  path: "data/avf.db"
+
+  # SQLite journal mode: DELETE | TRUNCATE | PERSIST | MEMORY | WAL | OFF
+  # WAL is recommended for concurrent readers/writers.
+  journal_mode: "WAL"
+
+  # SQLite synchronous mode: OFF | NORMAL | FULL | EXTRA
+  # NORMAL offers a good balance between safety and speed.
+  synchronous: "NORMAL"
+
+  # Page cache size in KiB (e.g. 64000 ≈ 64 MiB)
+  cache_size: 64000
+
+  # Busy timeout in milliseconds before returning a locked-error
+  busy_timeout: 5000
+
+  # Enable foreign-key constraints
+  foreign_keys: true
+
+# ── Checkpoints ───────────────────────────────────────────────────────────────
+# Automated backup schedule for the database and critical runtime state.
+checkpoints:
+  # Directory where checkpoint files are written
+  directory: "backups/"
+
+  # Incremental checkpoint: captures delta changes (lightweight)
+  incremental_interval:
+    # Interval in minutes
+    minutes: 15
+    # Maximum number of incremental backups to retain
+    retain_count: 20
+
+  # Full checkpoint: captures the entire database and state (heavyweight)
+  full_interval:
+    # Interval in hours
+    hours: 24
+    # Maximum number of full backups to retain
+    retain_count: 7
+
+  # Compress checkpoint files with gzip
+  compress: true

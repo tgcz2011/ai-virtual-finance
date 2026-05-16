@@ -1,0 +1,81 @@
+# Providers Configuration
+# Copy this file to providers.yaml and fill in your actual API credentials.
+
+# ── Data Providers ────────────────────────────────────────────────────────────
+# Sources for market data (prices, fundamentals, corporate actions).
+data_providers:
+  # US stocks & ETFs
+  us_stocks:
+    # Provider name. Supported: "yahoo", "alphavantage", "polygon"
+    provider: "yahoo"
+    # API key (required for paid tiers; leave empty for free Yahoo Finance)
+    api_key: ""
+    # Request timeout in seconds
+    timeout: 30
+    # Max retries on transient failures
+    retries: 3
+
+  # Cryptocurrency spot & derivatives
+  crypto:
+    # Provider name. Supported: "ccxt", "coinmarketcap", "coingecko"
+    provider: "ccxt"
+    # Default exchange id when using CCXT (e.g. "binance", "okx")
+    default_exchange: "binance"
+    # API key for the exchange (optional for public endpoints)
+    api_key: ""
+    # API secret for the exchange (optional for public endpoints)
+    api_secret: ""
+    timeout: 30
+    retries: 3
+
+  # Foreign exchange (FX) rates
+  fx:
+    # Provider name. Supported: "ecb", "currencylayer", "exchangerate-api"
+    provider: "ecb"
+    api_key: ""
+    timeout: 10
+    retries: 2
+
+# ── LLM Providers ─────────────────────────────────────────────────────────────
+# Large-language-model backends for analysis, summarisation and agent reasoning.
+llm_providers:
+  # OpenAI GPT-4 family
+  openai-gpt4:
+    # Base URL for OpenAI-compatible APIs (default: https://api.openai.com/v1)
+    base_url: "https://api.openai.com/v1"
+    # Model identifier
+    model: "gpt-4o"
+    # API key (keep secret — do NOT commit this file without masking)
+    api_key: ""
+    # Default generation parameters
+    temperature: 0.7
+    max_tokens: 4096
+    timeout: 60
+
+  # Anthropic Claude family
+  anthropic-claude:
+    base_url: "https://api.anthropic.com/v1"
+    model: "claude-3-5-sonnet-20241022"
+    api_key: ""
+    temperature: 0.7
+    max_tokens: 4096
+    timeout: 60
+
+  # Local Ollama deployment
+  local-ollama:
+    # Ollama server endpoint (typically http://localhost:11434)
+    base_url: "http://localhost:11434"
+    model: "llama3.1:8b"
+    api_key: ""  # Usually unused for local Ollama
+    temperature: 0.7
+    max_tokens: 4096
+    timeout: 120
+
+  # DeepSeek
+  deepseek:
+    base_url: "https://api.deepseek.com/v1"
+    model: "deepseek-chat"
+    api_key: ""
+    temperature: 0.7
+    max_tokens: 4096
+    timeout: 60

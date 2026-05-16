@@ -1,0 +1,55 @@
+# Fee Schedule Configuration
+# Copy this file to fee_schedule.yaml and adjust values as needed.
+
+# ── Exchange Rates ────────────────────────────────────────────────────────────
+# Controls how FX rates are fetched and how spreads are applied.
+exchange_rates:
+  # Data provider for FX rates. Supported: "ecb", "currencylayer", "exchangerate-api"
+  provider: "ecb"
+
+  # Whether to update rates daily (true) or on every request (false)
+  daily_update: true
+
+  # Bid/ask spread added on top of the mid USD/CNY rate (e.g. 0.002 = 0.2%)
+  usd_cny_spread: 0.002
+
+# ── Dividend Withholding Tax ─────────────────────────────────────────────────
+# Tax rates applied to dividend payments by asset jurisdiction.
+dividend_withholding_tax:
+  # US-listed stocks / ADRs (default 30%, reducible via W-8BEN treaty)
+  us_stocks:
+    rate: 0.30
+
+# ── Commissions ──────────────────────────────────────────────────────────────
+# Trading fees by asset class. All percentages are expressed as decimals.
+commissions:
+  # US stocks: per-share fee (e.g. 0.005 = $0.005 per share)
+  us_stocks:
+    per_share: 0.005
+
+  # Crypto: percentage of notional trade value (e.g. 0.001 = 0.1%)
+  crypto:
+    percentage: 0.001
+
+  # A-shares: percentage of notional trade value (e.g. 0.0003 = 0.03%)
+  a_stocks:
+    percentage: 0.0003
+
+# ── Slippage ─────────────────────────────────────────────────────────────────
+# Estimated execution slippage by asset class.
+# Values represent the average slippage as a percentage of the mid price.
+slippage:
+  # US large-cap stocks (e.g. 0.0001 = 1 bps)
+  us_large_cap: 0.0001
+
+  # US small-cap / low-volume stocks (e.g. 0.0005 = 5 bps)
+  us_small_cap: 0.0005
+
+  # Major crypto pairs (e.g. 0.0002 = 2 bps)
+  crypto_major: 0.0002
+
+  # Altcoin / low-liquidity crypto pairs (e.g. 0.0010 = 10 bps)
+  crypto_alt: 0.0010
+
+  # A-shares large-cap (e.g. 0.0002 = 2 bps)
+  a_large_cap: 0.0002

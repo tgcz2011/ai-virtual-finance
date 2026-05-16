@@ -1,0 +1,47 @@
+# Context Management Configuration
+# Copy this file to context.yaml and tune parameters to your hardware constraints.
+
+# ── System Prompt ─────────────────────────────────────────────────────────────
+# Base persona and behaviour instructions injected into every LLM conversation.
+system_prompt:
+  # Default persona used when no specific agent persona is selected
+  default: |
+    You are an AI financial assistant. You provide concise, data-driven
+    investment analysis and always disclose uncertainty. You never give
+    personalised financial advice.
+
+  # Optional per-agent overrides (key = agent name)
+  agents:
+    # portfolio_analyst: "You are a rigorous portfolio analyst..."
+    # risk_manager: "You are a conservative risk manager..."
+
+# ── Sliding Window ────────────────────────────────────────────────────────────
+# In-memory conversation buffer that drops oldest entries when limits are hit.
+sliding_window:
+  # Maximum total tokens allowed in the window (approximate)
+  max_tokens: 16000
+
+  # Maximum number of conversation entries (user + assistant turns)
+  max_entries: 50
+
+# ── Summariser ────────────────────────────────────────────────────────────────
+# Automatic summarisation schedule to compress history and reduce token usage.
+summarizer:
+  # Daily summary: runs every day at the configured hour (0-23)
+  daily:
+    enabled: true
+    hour: 2
+    # Target token count for the daily summary
+    target_tokens: 1024
+
+  # Weekly summary: runs every Sunday at the configured hour
+  weekly:
+    enabled: true
+    hour: 3
+    target_tokens: 2048
+
+  # Monthly summary: runs on the 1st of each month at the configured hour
+  monthly:
+    enabled: true
+    hour: 4
+    target_tokens: 4096
