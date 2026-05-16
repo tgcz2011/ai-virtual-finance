@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from enum import StrEnum
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -13,10 +14,14 @@ class OrderSide(StrEnum):
 class Trade(BaseModel):
     model_config = ConfigDict(frozen=True)
 
+    id: str = Field(default="", description="Trade identifier")
+    agent_id: str = Field(default="", description="Agent identifier")
     symbol: str
     quantity: int = Field(..., gt=0)
     price: float = Field(..., gt=0)
     side: OrderSide
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC), description="Trade timestamp")
+    fee: float = Field(default=0.0, ge=0, description="Trading fee")
 
 
 class Position(BaseModel):
