@@ -1,0 +1,19 @@
+# Core dependencies
+textual>=0.47.0
+rich>=13.7.0
+pydantic>=2.5.0
+pyyaml>=6.0.1
+httpx>=0.26.0
+
+# Data providers
+yfinance>=0.2.35
+ccxt>=4.2.0
+
+# Database
+aiosqlite>=0.19.0
+
+# CLI
+click>=8.1.7
+
+# Type hints
+typing-extensions>=4.9.0
